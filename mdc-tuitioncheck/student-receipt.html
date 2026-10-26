@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt — MDC TuitionCheck & Pay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #F5B301;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav h2 {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .nav-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #F5B301;
+            padding: 3px;
+            border: 2px solid #fff;
+        }
+
+        .nr {
+            text-align: right;
+        }
+
+        .ns {
+            font-size: 11px;
+            color: #F5B301;
+            display: block;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .nav a {
+            color: #F5B301;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 15px;
+            font-size: 14px;
+        }
+
+        .rc {
+            background: #fff;
+            max-width: 650px;
+            margin: 30px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(10, 37, 64, 0.15);
+        }
+
+        .rh {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 5px solid #F5B301;
+        }
+
+        .rh-logo {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #F5B301;
+            padding: 5px;
+            border: 3px solid #fff;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .rh .sn {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .rh .sa {
+            font-size: 10px;
+            color: #ccc;
+        }
+
+        .rh .rt {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(245, 179, 1, 0.3);
+            font-size: 13px;
+            color: #F5B301;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .sb {
+            text-align: center;
+            padding: 22px 20px 10px;
+        }
+
+        .si {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+            color: #fff;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .sb h2 {
+            color: #0A2540;
+            font-size: 20px;
+        }
+
+        .sb p {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .rb {
+            padding: 25px 30px;
+        }
+
+        .ir {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+        }
+
+        .ir:last-child {
+            border-bottom: none;
+        }
+
+        .ir .l {
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
+
+        .ir .v {
+            color: #0A2540;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .ar {
+            background: linear-gradient(135deg, #fff9e6, #fffbf0);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #F5B301;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .ar .al {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .ar .av {
+            font-size: 34px;
+            font-weight: 800;
+            color: #0A2540;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .rf {
+            background: #f8f9fa;
+            padding: 15px 30px;
+            text-align: center;
+            font-size: 11px;
+            color: #888;
+            border-top: 1px solid #eee;
+        }
+
+        .rf em {
+            color: #0A2540;
+            font-style: normal;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 10px;
+        }
+
+        .ra {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 650px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #F5B301, #d99d00);
+            color: #0A2540;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            min-width: 180px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #d99d00, #b38000);
+        }
+
+        .btn2 {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+        }
+
+        .btn2:hover {
+            background: linear-gradient(135deg, #061829, #0A2540);
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <h2>
+            <img src="https://media.licdn.com/dms/image/v2/C4E0BAQE1Z81q2ErnPg/company-logo_200_200/company-logo_200_200/0/1630578654224?e=2147483647&v=beta&t=KgUkDCDFdeYnwkhGLC_SEGQ4lUGqd6qHWh8_6K8hBYo" class="nav-logo">
+            TuitionCheck & Pay
+        </h2>
+        <div class="nr">
+            <span class="ns">Metro Dumaguete College</span>
+            Welcome, <strong id="userName">Student</strong>
+            <a href="student-dashboard.html">Dashboard</a>
+            <a href="#" onclick="logout(); return false;">Logout</a>
+        </div>
+    </div>
+
+    <div id="receiptContainer"></div>
+
+    <script>
+        const DB = {
+            getPayments() {
+                return JSON.parse(localStorage.getItem('mdc_payments') || '[]');
+            },
+            getPaymentById(id) {
+                return this.getPayments().find(p => p.id === parseInt(id));
+            }
+        };
+
+        function money(n) {
+            return '₱' + Number(n).toLocaleString('en-PH', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function date(iso) {
+            const d = new Date(iso);
+            return d.toLocaleDateString('en-PH', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) + ' ' + d.toLocaleTimeString('en-PH', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            location.href = 'index.html';
+        }
+
+        const sess = sessionStorage.getItem('mdc_user');
+        if (!sess) {
+            location.href = 'student-login.html';
+        }
+        const user = JSON.parse(sess);
+        document.getElementById('userName').textContent = user.name;
+
+        const id = parseInt(new URLSearchParams(location.search).get('id') || '0');
+        const payment = DB.getPaymentById(id);
+        const el = document.getElementById('receiptContainer');
+
+        if (!payment || payment.student_id !== user.id) {
+            el.innerHTML = '<div style="padding:30px;text-align:center;color:#888;"><h3>Receipt not found.</h3></div>';
+        } else {
+            el.innerHTML = `
+                <div class="rc">
+                    <div class="rh">
+                        <img src="mdc-logo.png" alt="MDC" class="rh-logo">
+                        <div class="sn">Metro Dumaguete College, Inc.</div>
+                        <div class="sa">E.J. Blanco Extension, Daro, Dumaguete City, Negros Oriental</div>
+                        <div class="rt">Official Digital Receipt</div>
+                    </div>
+                    <div class="sb">
+                        <div class="si">✓</div>
+                        <h2>Payment Successful</h2>
+                        <p>Your tuition payment has been processed</p>
+                    </div>
+                    <div class="rb">
+                        <div class="ir">
+                            <span class="l">Reference No.</span>
+                            <span class="v">${payment.reference_no}</span>
+                        </div>
+                        <div class="ir">
+                            <span class="l">Student Name</span>
+                            <span class="v">${user.name}</span>
+                        </div>
+                        <div class="ir">
+                            <span class="l">Student No.</span>
+                            <span class="v">${user.student_id}</span>
+                        </div>
+                        <div class="ir">
+                            <span class="l">Course</span>
+                            <span class="v">${payment.course}</span>
+                        </div>
+                        <div class="ir">
+                            <span class="l">School Year</span>
+                            <span class="v">${payment.school_year}</span>
+                        </div>
+                        <div class="ar">
+                            <div class="al">Amount Paid</div>
+                            <div class="av">${money(payment.amount)}</div>
+                        </div>
+                        <div class="ir">
+                            <span class="l">Payment Method</span>
+                            <span class="v">${payment.payment_method}</span>
+                        </div>
+                        <div class="ir">
+                            <span class="l">Channel</span>
+                            <span class="v">${payment.payment_channel}</span>
+                        </div>
+                        <div class="ir">
+                            <span class="l">Status</span>
+                            <span class="v"><span class="badge badge-completed">${payment.status}</span></span>
+                        </div>
+                        <div class="ir">
+                            <span class="l">Date & Time</span>
+                            <span class="v">${date(payment.payment_date)}</span>
+                        </div>
+                    </div>
+                    <div class="rf">
+                        <p>This is a system-generated receipt. No signature required.</p>
+                        <p style="margin-top:8px;"><em>Morality · Distinction · Courage · Ingenuity</em></p>
+                    </div>
+                </div>
+                <div class="ra">
+                    <button onclick="window.print()" class="btn">🖨️ Print Receipt</button>
+                    <a href="student-dashboard.html" class="btn btn2">Back to Dashboard</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

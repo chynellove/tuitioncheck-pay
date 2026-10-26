@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard — MDC TuitionCheck & Pay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #F5B301;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav h2 {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .nav-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #F5B301;
+            padding: 3px;
+            border: 2px solid #fff;
+        }
+
+        .nr {
+            text-align: right;
+        }
+
+        .ns {
+            font-size: 11px;
+            color: #F5B301;
+            display: block;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .nav a {
+            color: #F5B301;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 15px;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .nav a:hover {
+            background: rgba(245, 179, 1, 0.15);
+            color: #fff;
+        }
+
+        .ct {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .sb {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #F5B301;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
+        }
+
+        .sb:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(10, 37, 64, 0.12);
+            border-left-color: #0A2540;
+        }
+
+        .sb .l {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+
+        .sb .v {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0A2540;
+            margin-top: 6px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            border-top: 4px solid #F5B301;
+        }
+
+        .card h3 {
+            color: #0A2540;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #F5B301;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 17px;
+        }
+
+        .ba {
+            font-size: 40px;
+            font-weight: 800;
+            color: #0A2540;
+        }
+
+        .bl {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-paid {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-partial {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-unpaid {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        table th {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #F5B301, #d99d00);
+            color: #0A2540;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #d99d00, #b38000);
+        }
+
+        .foot {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #ccc;
+            font-size: 12px;
+            margin-top: 40px;
+            border-top: 4px solid #F5B301;
+            line-height: 1.8;
+        }
+
+        .foot .fb {
+            color: #F5B301;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .foot em {
+            color: #F5B301;
+            font-style: normal;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        @media (max-width: 600px) {
+            .nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav a {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <h2>
+            <img src="https://media.licdn.com/dms/image/v2/C4E0BAQE1Z81q2ErnPg/company-logo_200_200/company-logo_200_200/0/1630578654224?e=2147483647&v=beta&t=KgUkDCDFdeYnwkhGLC_SEGQ4lUGqd6qHWh8_6K8hBYo" class="nav-logo">
+            TuitionCheck & Pay
+        </h2>
+        <div class="nr">
+            <span class="ns">Metro Dumaguete College</span>
+            Welcome, <strong id="userName">Student</strong>
+            <a href="student-history.html">History</a>
+            <a href="#" onclick="logout(); return false;">Logout</a>
+        </div>
+    </div>
+
+    <div class="ct">
+        <div class="grid">
+            <div class="sb">
+                <div class="l">Student No.</div>
+                <div class="v" id="studentNo">—</div>
+            </div>
+            <div class="sb">
+                <div class="l">Course</div>
+                <div class="v" id="course" style="font-size:14px;">—</div>
+            </div>
+            <div class="sb">
+                <div class="l">Year Level</div>
+                <div class="v" id="yearLevel">—</div>
+            </div>
+            <div class="sb">
+                <div class="l">School Year</div>
+                <div class="v" id="schoolYear">—</div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+            <h3>💰 Current Tuition Balance</h3>
+            <div id="balanceSection"></div>
+        </div>
+
+        <div class="card">
+            <h3>📋 Recent Payments</h3>
+            <div id="recentPayments"></div>
+        </div>
+    </div>
+
+    <div class="foot">
+        <span class="fb">Metro Dumaguete College, Inc.</span>
+        <p>E.J. Blanco Extension, Daro, Dumaguete City, Negros Oriental 6200</p>
+        <p><em>Morality · Distinction · Courage · Ingenuity</em></p>
+    </div>
+
+    <script>
+        const DB = {
+            getBalances() {
+                return JSON.parse(localStorage.getItem('mdc_balances') || '[]');
+            },
+            getBalanceForStudent(sid) {
+                const l = this.getBalances().filter(b => b.student_id === sid);
+                return l.length ? l[l.length - 1] : null;
+            },
+            getPayments() {
+                return JSON.parse(localStorage.getItem('mdc_payments') || '[]');
+            },
+            getPaymentsForStudent(sid) {
+                return this.getPayments().filter(p => p.student_id === sid);
+            }
+        };
+
+        function money(n) {
+            return '₱' + Number(n).toLocaleString('en-PH', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function date(iso) {
+            const d = new Date(iso);
+            return d.toLocaleDateString('en-PH', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) + ' ' + d.toLocaleTimeString('en-PH', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            location.href = 'index.html';
+        }
+
+        const sess = sessionStorage.getItem('mdc_user');
+        if (!sess) {
+            location.href = 'student-login.html';
+        }
+        const user = JSON.parse(sess);
+
+        document.getElementById('userName').textContent = user.name;
+        document.getElementById('studentNo').textContent = user.student_id;
+        document.getElementById('course').textContent = user.course;
+        document.getElementById('yearLevel').textContent = user.year_level;
+        document.getElementById('schoolYear').textContent = user.school_year;
+
+        const balance = DB.getBalanceForStudent(user.id);
+        if (!balance) {
+            document.getElementById('balanceSection').innerHTML = '<p>No tuition balance record found. Please contact the Finance Office.</p>';
+        } else {
+            const b = parseFloat(balance.total_tuition) - parseFloat(balance.amount_paid);
+            const cls = balance.status.toLowerCase();
+            document.getElementById('balanceSection').innerHTML = `
+                <div class="bl">Outstanding Balance</div>
+                <div class="ba">${money(b)}</div>
+                <p style="margin-top:12px;color:#666;font-size:13px;">
+                    Total: <strong>${money(balance.total_tuition)}</strong> ·
+                    Paid: <strong>${money(balance.amount_paid)}</strong> ·
+                    Due: <strong>${new Date(balance.due_date).toLocaleDateString('en-PH', { month: 'long', day: 'numeric', year: 'numeric' })}</strong>
+                </p>
+                <p style="margin-top:10px;">
+                    Status: <span class="badge badge-${cls}">${balance.status}</span>
+                </p>
+                ${b > 0 ? `<a href="student-pay.html" class="btn" style="margin-top:20px;">Pay Now →</a>` : ''}
+            `;
+        }
+
+        const payments = DB.getPaymentsForStudent(user.id)
+            .sort((a, b) => new Date(b.payment_date) - new Date(a.payment_date))
+            .slice(0, 5);
+
+        const el = document.getElementById('recentPayments');
+        if (!payments.length) {
+            el.innerHTML = '<p>No payments recorded yet.</p>';
+        } else {
+            el.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reference No.</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${payments.map(p => `
+                            <tr>
+                                <td>${p.reference_no}</td>
+                                <td>${money(p.amount)}</td>
+                                <td>${p.payment_method}</td>
+                                <td>${date(p.payment_date)}</td>
+                                <td><a href="student-receipt.html?id=${p.id}" style="color:#0A2540;font-weight:700;border-bottom:2px solid #F5B301;">View</a></td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                <a href="student-history.html" style="display:inline-block;margin-top:15px;color:#0A2540;font-weight:700;border-bottom:2px solid #F5B301;">View all payments →</a>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashier Dashboard — MDC TuitionCheck & Pay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #F5B301;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav h2 {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .nav-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #F5B301;
+            padding: 3px;
+            border: 2px solid #fff;
+        }
+
+        .nr {
+            text-align: right;
+        }
+
+        .ns {
+            font-size: 11px;
+            color: #F5B301;
+            display: block;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .nav a {
+            color: #F5B301;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 15px;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        .nav a:hover {
+            background: rgba(245, 179, 1, 0.15);
+            color: #fff;
+        }
+
+        .ct {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .sb {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #F5B301;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .sb .l {
+            font-size: 11px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+
+        .sb .v {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0A2540;
+            margin-top: 6px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            border-top: 4px solid #F5B301;
+        }
+
+        .card h3 {
+            color: #0A2540;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #F5B301;
+            padding-bottom: 10px;
+            font-size: 17px;
+        }
+
+        .fb {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .fb select,
+        .fb input {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 13px;
+            min-width: 170px;
+        }
+
+        .fb select:focus,
+        .fb input:focus {
+            border-color: #F5B301;
+            outline: none;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #F5B301, #d99d00);
+            color: #0A2540;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #d99d00, #b38000);
+        }
+
+        .btn2 {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+        }
+
+        .btn2:hover {
+            background: linear-gradient(135deg, #061829, #0A2540);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        table th {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .foot {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #ccc;
+            font-size: 12px;
+            margin-top: 40px;
+            border-top: 4px solid #F5B301;
+            line-height: 1.8;
+        }
+
+        .foot .fb2 {
+            color: #F5B301;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .foot em {
+            color: #F5B301;
+            font-style: normal;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        @media (max-width: 600px) {
+            .nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav a {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <h2>
+            <img src="https://media.licdn.com/dms/image/v2/C4E0BAQE1Z81q2ErnPg/company-logo_200_200/company-logo_200_200/0/1630578654224?e=2147483647&v=beta&t=KgUkDCDFdeYnwkhGLC_SEGQ4lUGqd6qHWh8_6K8hBYo" class="nav-logo">
+            Cashier Dashboard
+        </h2>
+        <div class="nr">
+            <span class="ns">Metro Dumaguete College</span>
+            Cashier: <strong id="userName">Admin</strong>
+            <a href="#" onclick="logout(); return false;">Logout</a>
+        </div>
+    </div>
+
+    <div class="ct">
+        <div class="grid">
+            <div class="sb">
+                <div class="l">Total Payments</div>
+                <div class="v" id="statCount">0</div>
+            </div>
+            <div class="sb">
+                <div class="l">Total Collected</div>
+                <div class="v" id="statTotal">₱0.00</div>
+            </div>
+            <div class="sb">
+                <div class="l">Registered Students</div>
+                <div class="v" id="statStudents">0</div>
+            </div>
+            <div class="sb">
+                <div class="l">Verified Students</div>
+                <div class="v" id="statVerified">0</div>
+            </div>
+        </div>
+
+        <div class="card" style="margin-top:20px;">
+            <h3>🔎 Filter Payments</h3>
+            <div class="fb">
+                <select id="filterCourse">
+                    <option value="">All Courses</option>
+                </select>
+                <select id="filterSY">
+                    <option value="">All School Years</option>
+                </select>
+                <select id="filterMethod">
+                    <option value="">All Payment Methods</option>
+                    <option>Online Banking</option>
+                    <option>E-Wallet</option>
+                    <option>Credit/Debit Card</option>
+                    <option>Over-the-Counter</option>
+                </select>
+                <input type="text" id="filterSearch" placeholder="Search by name or ref no.">
+                <button class="btn" onclick="applyFilters()">Apply</button>
+                <button class="btn btn2" onclick="resetFilters()">Reset</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>💵 Payment Records</h3>
+            <div id="paymentsTable"></div>
+        </div>
+    </div>
+
+    <div class="foot">
+        <span class="fb2">Metro Dumaguete College, Inc.</span>
+        <p>E.J. Blanco Extension, Daro, Dumaguete City, Negros Oriental 6200</p>
+        <p><em>Morality · Distinction · Courage · Ingenuity</em></p>
+    </div>
+
+    <script>
+        const DB = {
+            getStudents() {
+                return JSON.parse(localStorage.getItem('mdc_students') || '[]');
+            },
+            getPayments() {
+                return JSON.parse(localStorage.getItem('mdc_payments') || '[]');
+            }
+        };
+
+        function money(n) {
+            return '₱' + Number(n).toLocaleString('en-PH', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function date(iso) {
+            const d = new Date(iso);
+            return d.toLocaleDateString('en-PH', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }) + ' ' + d.toLocaleTimeString('en-PH', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            location.href = 'index.html';
+        }
+
+        const sess = sessionStorage.getItem('mdc_user');
+        if (!sess) {
+            location.href = 'admin-login.html';
+        }
+        const admin = JSON.parse(sess);
+        document.getElementById('userName').textContent = admin.name;
+
+        function updateStats() {
+            const payments = DB.getPayments();
+            const students = DB.getStudents();
+            const total = payments.reduce((s, p) => s + parseFloat(p.amount), 0);
+
+            document.getElementById('statCount').textContent = payments.length;
+            document.getElementById('statTotal').textContent = money(total);
+            document.getElementById('statStudents').textContent = students.length;
+            document.getElementById('statVerified').textContent = students.filter(s => s.is_verified).length;
+        }
+
+        function populateFilters() {
+            const payments = DB.getPayments();
+            const students = DB.getStudents();
+            const courses = [...new Set([...students.map(s => s.course), ...payments.map(p => p.course)])].sort();
+            const sys = [...new Set([...students.map(s => s.school_year), ...payments.map(p => p.school_year)])].sort();
+
+            document.getElementById('filterCourse').innerHTML = '<option value="">All Courses</option>' +
+                courses.map(c => `<option>${c}</option>`).join('');
+            document.getElementById('filterSY').innerHTML = '<option value="">All School Years</option>' +
+                sys.map(s => `<option>${s}</option>`).join('');
+        }
+
+        function renderTable(filters = {}) {
+            const payments = DB.getPayments().sort((a, b) => new Date(b.payment_date) - new Date(a.payment_date));
+            const students = DB.getStudents();
+            let filtered = payments;
+
+            if (filters.course) filtered = filtered.filter(p => p.course === filters.course);
+            if (filters.schoolYear) filtered = filtered.filter(p => p.school_year === filters.schoolYear);
+            if (filters.method) filtered = filtered.filter(p => p.payment_method === filters.method);
+            if (filters.search) {
+                const q = filters.search.toLowerCase();
+                filtered = filtered.filter(p => {
+                    const stu = students.find(s => s.id === p.student_id);
+                    const name = stu ? (stu.first_name + ' ' + stu.last_name).toLowerCase() : '';
+                    return p.reference_no.toLowerCase().includes(q) || name.includes(q);
+                });
+            }
+
+            const el = document.getElementById('paymentsTable');
+            if (!filtered.length) {
+                el.innerHTML = '<p style="padding:20px;text-align:center;color:#888;">No payment records found.</p>';
+                return;
+            }
+
+            el.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Reference No.</th>
+                            <th>Student</th>
+                            <th>Course</th>
+                            <th>School Year</th>
+                            <th>Amount</th>
+                            <th>Method</th>
+                            <th>Channel</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${filtered.map(p => {
+                            const stu = students.find(s => s.id === p.student_id);
+                            const name = stu ? (stu.first_name + ' ' + stu.last_name) : 'Unknown';
+                            const no = stu ? stu.student_id : '—';
+                            return `
+                                <tr>
+                                    <td>${p.reference_no}</td>
+                                    <td><strong>${name}</strong><br><small style="color:#888;">${no}</small></td>
+                                    <td>${p.course}</td>
+                                    <td>${p.school_year}</td>
+                                    <td><strong>${money(p.amount)}</strong></td>
+                                    <td>${p.payment_method}</td>
+                                    <td>${p.payment_channel}</td>
+                                    <td><span class="badge badge-completed">${p.status}</span></td>
+                                    <td>${date(p.payment_date)}</td>
+                                </tr>
+                            `;
+                        }).join('')}
+                    </tbody>
+                </table>
+                <p style="margin-top:15px;font-size:12px;color:#666;">Showing <strong>${filtered.length}</strong> payment${filtered.length !== 1 ? 's' : ''}</p>
+            `;
+        }
+
+        function applyFilters() {
+            renderTable({
+                course: document.getElementById('filterCourse').value,
+                schoolYear: document.getElementById('filterSY').value,
+                method: document.getElementById('filterMethod').value,
+                search: document.getElementById('filterSearch').value.trim()
+            });
+        }
+
+        function resetFilters() {
+            document.getElementById('filterCourse').value = '';
+            document.getElementById('filterSY').value = '';
+            document.getElementById('filterMethod').value = '';
+            document.getElementById('filterSearch').value = '';
+            renderTable();
+        }
+
+        updateStats();
+        populateFilters();
+        renderTable();
+    </script>
+</body>
+</html>

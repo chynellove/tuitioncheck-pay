@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Tuition — MDC TuitionCheck & Pay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .nav {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #F5B301;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav h2 {
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+        }
+
+        .nav-logo {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #F5B301;
+            padding: 3px;
+            border: 2px solid #fff;
+        }
+
+        .nr {
+            text-align: right;
+        }
+
+        .ns {
+            font-size: 11px;
+            color: #F5B301;
+            display: block;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .nav a {
+            color: #F5B301;
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 15px;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 4px;
+        }
+
+        .nav a:hover {
+            background: rgba(245, 179, 1, 0.15);
+            color: #fff;
+        }
+
+        .ct {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #F5B301;
+        }
+
+        .card h3 {
+            color: #0A2540;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #F5B301;
+            padding-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .note {
+            background: #fff9e6;
+            border-left: 3px solid #F5B301;
+            padding: 12px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .fg {
+            margin-bottom: 18px;
+        }
+
+        .fg label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0A2540;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fg input,
+        .fg select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            background: #fff;
+        }
+
+        .fg input:focus,
+        .fg select:focus {
+            border-color: #F5B301;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.2);
+        }
+
+        .methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+        }
+
+        .mc {
+            border: 2px solid #ddd;
+            padding: 18px 12px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            background: #fff;
+        }
+
+        .mc:hover {
+            border-color: #F5B301;
+            background: #fffbf0;
+        }
+
+        .mc input[type="radio"] {
+            display: none;
+        }
+
+        .mc.selected {
+            border-color: #F5B301;
+            background: #fff9e6;
+            box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.2);
+        }
+
+        .mi {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .mc strong {
+            display: block;
+            color: #0A2540;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .mc small {
+            color: #888;
+            font-size: 11px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #F5B301, #d99d00);
+            color: #0A2540;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            min-width: 200px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #d99d00, #b38000);
+        }
+
+        .btn2 {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+        }
+
+        .btn2:hover {
+            background: linear-gradient(135deg, #061829, #0A2540);
+        }
+
+        .foot {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #ccc;
+            font-size: 12px;
+            margin-top: 40px;
+            border-top: 4px solid #F5B301;
+            line-height: 1.8;
+        }
+
+        .foot .fb {
+            color: #F5B301;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .foot em {
+            color: #F5B301;
+            font-style: normal;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        @media (max-width: 600px) {
+            .nav {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav a {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <h2>
+            <img src="https://media.licdn.com/dms/image/v2/C4E0BAQE1Z81q2ErnPg/company-logo_200_200/company-logo_200_200/0/1630578654224?e=2147483647&v=beta&t=KgUkDCDFdeYnwkhGLC_SEGQ4lUGqd6qHWh8_6K8hBYo" class="nav-logo">
+            TuitionCheck & Pay
+        </h2>
+        <div class="nr">
+            <span class="ns">Metro Dumaguete College</span>
+            Welcome, <strong id="userName">Student</strong>
+            <a href="student-dashboard.html">Dashboard</a>
+            <a href="#" onclick="logout(); return false;">Logout</a>
+        </div>
+    </div>
+
+    <div class="ct">
+        <div class="card">
+            <h3>💳 Pay Your Tuition</h3>
+            <div id="balanceSummary"></div>
+
+            <form onsubmit="handlePay(event)">
+                <div class="fg">
+                    <label>Amount to Pay (₱)</label>
+                    <input type="number" id="amount" min="1" step="0.01" required>
+                </div>
+
+                <div class="fg">
+                    <label>Payment Method</label>
+                    <div class="methods">
+                        <label class="mc">
+                            <input type="radio" name="method" value="Online Banking" required>
+                            <span class="mi">🏦</span>
+                            <strong>Online Banking</strong>
+                            <small>BDO, BPI, Metrobank</small>
+                        </label>
+                        <label class="mc">
+                            <input type="radio" name="method" value="E-Wallet">
+                            <span class="mi">📱</span>
+                            <strong>E-Wallet</strong>
+                            <small>GCash, Maya</small>
+                        </label>
+                        <label class="mc">
+                            <input type="radio" name="method" value="Credit/Debit Card">
+                            <span class="mi">💳</span>
+                            <strong>Card</strong>
+                            <small>Visa, Mastercard</small>
+                        </label>
+                        <label class="mc">
+                            <input type="radio" name="method" value="Over-the-Counter">
+                            <span class="mi">🏪</span>
+                            <strong>Over-the-Counter</strong>
+                            <small>7-Eleven, Bayad Center</small>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="fg" id="channelGroup" style="display:none;">
+                    <label>Select Channel</label>
+                    <select id="paymentChannel">
+                        <option value="">-- Select --</option>
+                    </select>
+                </div>
+
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                    <button type="submit" class="btn">Confirm & Pay</button>
+                    <a href="student-dashboard.html" class="btn btn2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="foot">
+        <span class="fb">Metro Dumaguete College, Inc.</span>
+        <p>E.J. Blanco Extension, Daro, Dumaguete City, Negros Oriental 6200</p>
+        <p><em>Morality · Distinction · Courage · Ingenuity</em></p>
+    </div>
+
+    <script>
+        const DB = {
+            getBalances() {
+                return JSON.parse(localStorage.getItem('mdc_balances') || '[]');
+            },
+            saveBalances(l) {
+                localStorage.setItem('mdc_balances', JSON.stringify(l));
+            },
+            getBalanceForStudent(sid) {
+                const l = this.getBalances().filter(b => b.student_id === sid);
+                return l.length ? l[l.length - 1] : null;
+            },
+            updateBalance(id, c) {
+                const l = this.getBalances();
+                const i = l.findIndex(b => b.id === id);
+                if (i >= 0) {
+                    l[i] = { ...l[i], ...c };
+                    this.saveBalances(l);
+                }
+            },
+            getPayments() {
+                return JSON.parse(localStorage.getItem('mdc_payments') || '[]');
+            },
+            addPayment(p) {
+                const l = this.getPayments();
+                p.id = l.length ? Math.max(...l.map(x => x.id)) + 1 : 1;
+                l.push(p);
+                localStorage.setItem('mdc_payments', JSON.stringify(l));
+                return p;
+            }
+        };
+
+        function money(n) {
+            return '₱' + Number(n).toLocaleString('en-PH', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function generateRef() {
+            const d = new Date();
+            const ymd = d.getFullYear() + String(d.getMonth() + 1).padStart(2, '0') + String(d.getDate()).padStart(2, '0');
+            return `MDC-${ymd}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+        }
+
+        function logout() {
+            sessionStorage.clear();
+            location.href = 'index.html';
+        }
+
+        const sess = sessionStorage.getItem('mdc_user');
+        if (!sess) {
+            location.href = 'student-login.html';
+        }
+        const user = JSON.parse(sess);
+        document.getElementById('userName').textContent = user.name;
+
+        const balance = DB.getBalanceForStudent(user.id);
+        if (!balance) {
+            alert('No balance record found.');
+            location.href = 'student-dashboard.html';
+        }
+        const maxAmount = parseFloat(balance.total_tuition) - parseFloat(balance.amount_paid);
+
+        document.getElementById('balanceSummary').innerHTML = `
+            <div class="note">
+                Outstanding Balance: <strong>${money(maxAmount)}</strong>
+                (${balance.school_year} · ${balance.semester})
+            </div>
+        `;
+
+        document.getElementById('amount').value = maxAmount;
+        document.getElementById('amount').max = maxAmount;
+
+        const channels = {
+            "Online Banking": ["BDO", "BPI", "Metrobank", "Landbank"],
+            "E-Wallet": ["GCash", "Maya", "ShopeePay"],
+            "Credit/Debit Card": ["Visa", "Mastercard", "JCB"],
+            "Over-the-Counter": ["7-Eleven", "Bayad Center", "Cebuana", "Palawan Express"]
+        };
+
+        document.querySelectorAll('input[name="method"]').forEach(r => {
+            r.addEventListener('change', e => {
+                const m = e.target.value;
+                document.querySelectorAll('.mc').forEach(c => c.classList.remove('selected'));
+                e.target.closest('.mc').classList.add('selected');
+                const sel = document.getElementById('paymentChannel');
+                sel.innerHTML = '<option value="">-- Select --</option>';
+                channels[m].forEach(ch => {
+                    const o = document.createElement('option');
+                    o.value = ch;
+                    o.textContent = ch;
+                    sel.appendChild(o);
+                });
+                document.getElementById('channelGroup').style.display = 'block';
+            });
+        });
+
+        function handlePay(e) {
+            e.preventDefault();
+            const amount = parseFloat(document.getElementById('amount').value);
+            const method = document.querySelector('input[name="method"]:checked');
+
+            if (!method) {
+                alert('Please select a payment method.');
+                return;
+            }
+            if (amount <= 0 || amount > maxAmount) {
+                alert('Invalid amount.');
+                return;
+            }
+
+            const channel = document.getElementById('paymentChannel').value || '—';
+
+            const payment = DB.addPayment({
+                reference_no: generateRef(),
+                student_id: user.id,
+                balance_id: balance.id,
+                amount: amount,
+                payment_method: method.value,
+                payment_channel: channel,
+                school_year: balance.school_year,
+                course: user.course,
+                status: 'Completed',
+                payment_date: new Date().toISOString()
+            });
+
+            const newPaid = parseFloat(balance.amount_paid) + amount;
+            const newStatus = newPaid >= parseFloat(balance.total_tuition) ? 'Paid' : (newPaid > 0 ? 'Partial' : 'Unpaid');
+            DB.updateBalance(balance.id, {
+                amount_paid: newPaid,
+                status: newStatus
+            });
+
+            location.href = `student-receipt.html?id=${payment.id}`;
+        }
+    </script>
+</body>
+</html>

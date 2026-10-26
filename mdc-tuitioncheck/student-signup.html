@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Sign Up — MDC TuitionCheck & Pay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            min-height: 100vh;
+        }
+
+        .fw {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .box {
+            background: #fff;
+            padding: 35px 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 520px;
+            border-top: 6px solid #F5B301;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 4px solid #F5B301;
+            background: #fff;
+            padding: 4px;
+            display: inline-block;
+            box-shadow: 0 6px 20px rgba(10, 37, 64, 0.2);
+        }
+
+        .box h1 {
+            color: #0A2540;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        .box .sub {
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .box .school {
+            text-align: center;
+            color: #F5B301;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 22px;
+        }
+
+        .fg {
+            margin-bottom: 14px;
+        }
+
+        .fg label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0A2540;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fg input,
+        .fg select {
+            width: 100%;
+            padding: 11px 13px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            background: #fff;
+        }
+
+        .fg input:focus,
+        .fg select:focus {
+            border-color: #F5B301;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(245, 179, 1, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #F5B301, #d99d00);
+            color: #0A2540;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #d99d00, #b38000);
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .alert-error {
+            background: #fee;
+            color: #c00;
+            border-left: 4px solid #c00;
+        }
+
+        .note {
+            background: #fff9e6;
+            border-left: 3px solid #F5B301;
+            padding: 10px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .back {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 13px;
+        }
+
+        .back a {
+            color: #0A2540;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #F5B301;
+            padding-bottom: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="fw">
+        <div class="box">
+            <div class="logo">
+                <img src="https://media.licdn.com/dms/image/v2/C4E0BAQE1Z81q2ErnPg/company-logo_200_200/company-logo_200_200/0/1630578654224?e=2147483647&v=beta&t=KgUkDCDFdeYnwkhGLC_SEGQ4lUGqd6qHWh8_6K8hBYo" class="logo-img">
+            </div>
+            <h1>Student Sign Up</h1>
+            <p class="sub">Create your TuitionCheck & Pay account</p>
+            <p class="school">Metro Dumaguete College</p>
+
+            <div class="note">
+                📧 Only <strong>@mdci.edu.ph</strong> emails accepted. An OTP will be shown to verify your account.
+            </div>
+
+            <div id="alertBox"></div>
+
+            <form onsubmit="handleSignup(event)">
+                <div class="fg">
+                    <label>Student ID</label>
+                    <input type="text" id="student_id" placeholder="2024-0001" required>
+                </div>
+                <div class="fg">
+                    <label>MDC Email</label>
+                    <input type="email" id="email" placeholder="firstname.lastname@mdci.edu.ph" required>
+                </div>
+                <div class="fg">
+                    <label>Password</label>
+                    <input type="password" id="password" minlength="6" required>
+                </div>
+                <div class="fg">
+                    <label>First Name</label>
+                    <input type="text" id="first_name" required>
+                </div>
+                <div class="fg">
+                    <label>Last Name</label>
+                    <input type="text" id="last_name" required>
+                </div>
+                <div class="fg">
+                    <label>Course</label>
+                    <input type="text" id="course" placeholder="BS Information Technology" required>
+                </div>
+                <div class="fg">
+                    <label>Year Level</label>
+                    <select id="year_level" required>
+                        <option value="">-- Select --</option>
+                        <option>1st Year</option>
+                        <option>2nd Year</option>
+                        <option>3rd Year</option>
+                        <option>4th Year</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label>School Year</label>
+                    <select id="school_year" required>
+                        <option value="">-- Select --</option>
+                        <option>2024-2025</option>
+                        <option>2025-2026</option>
+                    </select>
+                </div>
+                <div class="fg">
+                    <label>Contact Number</label>
+                    <input type="text" id="contact_number" placeholder="09171234567">
+                </div>
+                <button type="submit" class="btn">Create Account & Send OTP</button>
+            </form>
+
+            <p class="back">
+                Already have an account? <a href="student-login.html">Log in here</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const DB = {
+            init() {
+                if (!localStorage.getItem('mdc_admins')) {
+                    localStorage.setItem('mdc_admins', JSON.stringify([{
+                        id: 1,
+                        username: 'admin',
+                        password: 'admin123',
+                        full_name: 'MDC Cashier'
+                    }]));
+                }
+                if (!localStorage.getItem('mdc_students')) localStorage.setItem('mdc_students', '[]');
+                if (!localStorage.getItem('mdc_balances')) localStorage.setItem('mdc_balances', '[]');
+                if (!localStorage.getItem('mdc_payments')) localStorage.setItem('mdc_payments', '[]');
+            },
+            getStudents() {
+                return JSON.parse(localStorage.getItem('mdc_students') || '[]');
+            },
+            saveStudents(l) {
+                localStorage.setItem('mdc_students', JSON.stringify(l));
+            },
+            addStudent(s) {
+                const l = this.getStudents();
+                s.id = l.length ? Math.max(...l.map(x => x.id)) + 1 : 1;
+                l.push(s);
+                this.saveStudents(l);
+                return s;
+            },
+            getBalances() {
+                return JSON.parse(localStorage.getItem('mdc_balances') || '[]');
+            },
+            saveBalances(l) {
+                localStorage.setItem('mdc_balances', JSON.stringify(l));
+            },
+            addBalance(b) {
+                const l = this.getBalances();
+                b.id = l.length ? Math.max(...l.map(x => x.id)) + 1 : 1;
+                l.push(b);
+                this.saveBalances(l);
+                return b;
+            }
+        };
+
+        DB.init();
+
+        const ALLOWED_DOMAIN = 'mdci.edu.ph';
+
+        function validateDomain(e) {
+            const d = e.split('@')[1];
+            return d && d.toLowerCase() === ALLOWED_DOMAIN;
+        }
+
+        function generateOTP() {
+            return String(Math.floor(100000 + Math.random() * 900000));
+        }
+
+        function showAlert(m) {
+            document.getElementById('alertBox').innerHTML = `<div class="alert alert-error">${m}</div>`;
+        }
+
+        function handleSignup(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const student_id = document.getElementById('student_id').value.trim();
+
+            if (!validateDomain(email)) {
+                showAlert('⚠️ Only @mdci.edu.ph email addresses are allowed.');
+                return;
+            }
+
+            const students = DB.getStudents();
+            if (students.some(s => s.email.toLowerCase() === email.toLowerCase())) {
+                showAlert('⚠️ Email already registered.');
+                return;
+            }
+            if (students.some(s => s.student_id === student_id)) {
+                showAlert('⚠️ Student ID already registered.');
+                return;
+            }
+
+            const otp = generateOTP();
+
+            const student = DB.addStudent({
+                student_id,
+                email,
+                password: document.getElementById('password').value,
+                first_name: document.getElementById('first_name').value.trim(),
+                last_name: document.getElementById('last_name').value.trim(),
+                course: document.getElementById('course').value.trim(),
+                year_level: document.getElementById('year_level').value,
+                school_year: document.getElementById('school_year').value,
+                contact_number: document.getElementById('contact_number').value.trim(),
+                is_verified: false,
+                otp_code: otp
+            });
+
+            DB.addBalance({
+                student_id: student.id,
+                school_year: student.school_year,
+                semester: '1st Semester',
+                total_tuition: 25000.00,
+                amount_paid: 0.00,
+                due_date: '2025-06-30',
+                status: 'Unpaid'
+            });
+
+            sessionStorage.setItem('mdc_otp_email', email);
+            sessionStorage.setItem('mdc_otp_code', otp);
+            location.href = 'verify-otp.html';
+        }
+    </script>
+</body>
+</html>

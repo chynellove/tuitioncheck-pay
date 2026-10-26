@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Dumaguete College — TuitionCheck & Pay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+            min-height: 100vh;
+        }
+
+        .wrap {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .landing {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            border-radius: 50%;
+            border: 4px solid #F5B301;
+            background: #fff;
+            padding: 8px;
+            box-shadow: 0 10px 30px rgba(245, 179, 1, 0.4);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 32px;
+            margin-bottom: 6px;
+        }
+
+        .sub {
+            color: #F5B301;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .school {
+            color: #ccc;
+            font-size: 13px;
+            margin-bottom: 40px;
+        }
+
+        .values {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: #F5B301;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 45px;
+            flex-wrap: wrap;
+        }
+
+        .values span::before {
+            content: "◆ ";
+        }
+
+        .portals {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 14px;
+            text-decoration: none;
+            color: #333;
+            transition: 0.3s;
+            border-top: 6px solid #F5B301;
+            display: block;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .card h2 {
+            color: #0A2540;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #F5B301, #d99d00);
+            color: #0A2540;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .card.admin .btn {
+            background: linear-gradient(135deg, #0A2540, #1a4a7a);
+            color: #fff;
+        }
+
+        .foot {
+            color: #888;
+            font-size: 11px;
+            margin-top: 40px;
+            line-height: 1.8;
+        }
+
+        .foot em {
+            color: #F5B301;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="landing">
+            <img src="https://media.licdn.com/dms/image/v2/C4E0BAQE1Z81q2ErnPg/company-logo_200_200/company-logo_200_200/0/1630578654224?e=2147483647&v=beta&t=KgUkDCDFdeYnwkhGLC_SEGQ4lUGqd6qHWh8_6K8hBYo" class="logo-img">
+            <p class="sub">Metro Dumaguete College</p>
+            <h1>TuitionCheck & Pay</h1>
+            <p class="school">E.J. Blanco Extension, Daro, Dumaguete City, Negros Oriental</p>
+
+            
+
+            <div class="portals">
+                <a href="student-login.html" class="card">
+                    <span class="icon">🎓</span>
+                    <h2>Student Portal</h2>
+                    <p>Check your tuition balance, pay online, and view your payment history — anytime, anywhere.</p>
+                    <span class="btn">Enter Student Portal →</span>
+                </a>
+
+                <a href="admin-login.html" class="card admin">
+                    <span class="icon">🏦</span>
+                    <h2>Cashier / Admin Portal</h2>
+                    <p>View all student payments, filter by course and school year, and monitor transactions.</p>
+                    <span class="btn">Enter Admin Portal →</span>
+                </a>
+            </div>
+
+            <div class="foot">
+                <p>© <span id="year"></span> Metro Dumaguete College, Inc. All rights reserved.</p>
+                <p><em>Morality · Distinction · Courage · Ingenuity</em></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
